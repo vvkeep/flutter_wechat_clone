@@ -43,7 +43,7 @@ class _ConversationItem extends StatelessWidget {
       );
 
       avatarContainer = Stack(
-        clipBehavior: Clip.hardEdge,
+        clipBehavior: Clip.none,
         children: <Widget>[
           avatar,
           Positioned(

@@ -45,6 +45,7 @@ class _ContactItem extends StatelessWidget {
         placeholder: (context, url) => Constants.ContactAvatarDefaultIocn,
         width: Constants.ContactAvatarSize,
         height: Constants.ContactAvatarSize,
+        errorWidget: (context, url, msg) => Constants.ContactAvatarDefaultIocn,
       );
     } else {
       _avatarIcon = Image.asset(
