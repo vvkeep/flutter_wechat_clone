@@ -21,7 +21,9 @@ class _DiscoverPageState extends State<DiscoverPage> {
             FullWidthButton(
               iconPath: 'assets/images/ic_social_circle.png',
               title: '朋友圈',
-              onPressed: () {},
+              onPressed: () {
+                print('点击了朋友圈');
+              },
             ),
             SizedBox(height: SEPARATE_SIZE),
             FullWidthButton(

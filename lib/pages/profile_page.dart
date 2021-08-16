@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/full_width_button.dart';
-import '../constants.dart' show AppColors, Constants, AppStyles;
+import '../constants.dart' show AppColors, Constants;
 import 'package:cached_network_image/cached_network_image.dart';
 
 class _ProfileHeaderView extends StatelessWidget {
@@ -27,7 +27,7 @@ class _ProfileHeaderView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('David',
+                Text('Super V',
                     style: TextStyle(
                       color: AppColors.TitleColor,
                       fontSize: 16.0,

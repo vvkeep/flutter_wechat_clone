@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class Contact {
   const Contact({
     required this.avatar,
@@ -90,15 +88,13 @@ class ContactsPageData {
       nameIndex: 'T',
     ),
     const Contact(
-      avatar:
-          'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1537868900176&di=ddbe94a75a3cc33f880a5f3f675b8acd&imgtype=0&src=http%3A%2F%2Fs2.sinaimg.cn%2Fmw690%2F003wRTwMty6IGZWzd2p31',
-      name: '张伟',
+      avatar: 'https://randomuser.me/api/portraits/men/31.jpg',
+      name: 'Zat',
       nameIndex: 'Z',
     ),
     const Contact(
-      avatar:
-          'https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1537858866&di=fe35e4465c73122f14e1c9475dd68e47&src=http://a2.att.hudong.com/63/26/01300001128119143503262347361.jpg',
-      name: '张益达',
+      avatar: 'https://randomuser.me/api/portraits/women/13.jpg',
+      name: 'Zlia',
       nameIndex: 'Z',
     ),
   ];

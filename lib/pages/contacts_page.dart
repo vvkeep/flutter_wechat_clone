@@ -127,6 +127,7 @@ const INDEX_BAR_WORDS = [
   "Z"
 ];
 
+// ignore: must_be_immutable
 class ContactsPage extends StatefulWidget {
   Color _indexBarBgColor = Colors.transparent;
   String _currentLetter = '';
@@ -247,7 +248,6 @@ class _ContactsPageState extends State<ContactsPage> {
       },
       onVerticalDragUpdate: (DragUpdateDetails details) {
         setState(() {
-          var _letter = getLetter(context, _tileHeight, details.globalPosition);
           widget._currentLetter =
               getLetter(context, _tileHeight, details.globalPosition);
           _jumpToIndex(widget._currentLetter);

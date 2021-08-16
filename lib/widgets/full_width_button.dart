@@ -51,14 +51,17 @@ class FullWidthButton extends StatelessWidget {
       child: pureButton,
     );
 
-    return Container(
-      padding: EdgeInsets.only(
-          left: HORIZONTAL_PADDING,
-          right: HORIZONTAL_PADDING,
-          top: VERTICAL_PADDING,
-          bottom: showDivider ? 0.0 : VERTICAL_PADDING),
-      color: Colors.white,
-      child: showDivider ? borderButton : pureButton,
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        padding: EdgeInsets.only(
+            left: HORIZONTAL_PADDING,
+            right: HORIZONTAL_PADDING,
+            top: VERTICAL_PADDING,
+            bottom: showDivider ? 0.0 : VERTICAL_PADDING),
+        color: Colors.white,
+        child: showDivider ? borderButton : pureButton,
+      ),
     );
   }
 }

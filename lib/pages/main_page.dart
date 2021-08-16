@@ -9,19 +9,13 @@ import 'discover_page.dart';
 enum ActionItems { GROUP_CHAT, ADD_FRIEND, QR_SCAN, PAYMENT }
 
 class NavigationIconView {
-  final String _title;
-  final IconData _icon;
-  final IconData _activeIcon;
   final BottomNavigationBarItem item;
 
   NavigationIconView(
       {required String title,
       required IconData icon,
       required IconData activeIcon})
-      : _title = title,
-        _icon = icon,
-        _activeIcon = activeIcon,
-        item = new BottomNavigationBarItem(
+      : item = new BottomNavigationBarItem(
             icon: Icon(icon),
             activeIcon: Icon(activeIcon),
             label: title,
