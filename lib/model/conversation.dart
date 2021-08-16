@@ -1,33 +1,28 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
 
-enum Device {
-  MAC,
-  WIN
-}
+enum Device { MAC, WIN }
 
 class Conversation {
   final String avatar;
   final String title;
-  final int titleColor;
+  final Color titleColor;
   final String desc;
   final String updateAt;
   final bool isMute;
   final int unreadMsgCount;
   final bool dispalyDot;
 
-  const Conversation({
-    required this.avatar,
-    required this.title,
-    required this.titleColor: AppColors.TitleColor,
-    required this.desc,
-    required this.updateAt,
-    required this.isMute: false,
-    required this.unreadMsgCount: 0,
-    required this.dispalyDot: false
-  });
+  const Conversation(
+      {required this.avatar,
+      required this.title,
+      this.titleColor: AppColors.TitleColor,
+      required this.desc,
+      required this.updateAt,
+      this.isMute: false,
+      this.unreadMsgCount: 0,
+      this.dispalyDot: false});
 
-  
   bool isAvatarFromNet() {
     if (this.avatar.indexOf('http') == 0 || this.avatar.indexOf('https') == 0) {
       return true;
@@ -39,18 +34,19 @@ class Conversation {
 class ConversationPageData {
   const ConversationPageData({
     this.device,
-    this.conversations,
+    required this.conversations,
   });
 
-  final Device device;
+  final Device? device;
   final List<Conversation> conversations;
 
   static mock() {
-    return ConversationPageData(device: Device.WIN, conversations: mockConversations);
+    return ConversationPageData(
+        device: Device.WIN, conversations: mockConversations);
   }
 
   static List<Conversation> mockConversations = [
-  const Conversation(
+    const Conversation(
       avatar: 'assets/images/ic_file_transfer.png',
       title: '文件传输助手',
       desc: '',
@@ -65,7 +61,7 @@ class ConversationPageData {
     const Conversation(
       avatar: 'assets/images/ic_wx_games.png',
       title: '微信游戏',
-      titleColor: 0xff586b95,
+      titleColor: Color(0xff586b95),
       desc: '25元现金助力开学季！',
       updateAt: '17:12',
     ),
@@ -88,7 +84,7 @@ class ConversationPageData {
     const Conversation(
       avatar: 'assets/images/ic_fengchao.png',
       title: '蜂巢智能柜',
-      titleColor: 0xff586b95,
+      titleColor: Color(0xff586b95),
       desc: '喷一喷，竟比洗牙还神奇！5秒钟还你一个漂亮洁白的口腔。',
       updateAt: '17:12',
     ),
@@ -148,5 +144,5 @@ class ConversationPageData {
       isMute: false,
       unreadMsgCount: 0,
     ),
-];
+  ];
 }

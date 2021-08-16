@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'full_width_button.dart';
+import '../widgets/full_width_button.dart';
 import '../constants.dart' show AppColors;
+
 class DiscoverPage extends StatefulWidget {
   @override
   _DiscoverPageState createState() => _DiscoverPageState();
@@ -12,7 +13,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(AppColors.BackgroundColor),
+      color: AppColors.BackgroundColor,
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -71,7 +72,7 @@ class _DiscoverPageState extends State<DiscoverPage> {
               iconPath: 'assets/images/ic_game_entry.png',
               title: '游戏',
               onPressed: () {},
-            ), 
+            ),
             SizedBox(height: SEPARATE_SIZE),
             FullWidthButton(
               iconPath: 'assets/images/ic_mini_program.png',
