@@ -18,7 +18,14 @@ class _ProfileHeaderView extends StatelessWidget {
         children: <Widget>[
           CachedNetworkImage(
             imageUrl: 'https://z3.ax1x.com/2021/08/18/fom6ED.jpg',
+            imageBuilder: (context, imageProvider) => Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(6.0)),
+                image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
+              ),
+            ),
             placeholder: (context, msg) => Constants.ProfileAvatarDefaultIocn,
+            errorWidget: (context, url, error) => Icon(Icons.error),
             width: Constants.ProfileHeaderIconSize,
             height: Constants.ProfileHeaderIconSize,
           ),
@@ -27,7 +34,7 @@ class _ProfileHeaderView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('Super V',
+                Text('码农 Super V',
                     style: TextStyle(
                       color: AppColors.TitleColor,
                       fontSize: 16.0,
