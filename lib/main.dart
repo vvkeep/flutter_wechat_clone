@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: '微信',
+      title: 'Mul',
       theme: ThemeData(
           primaryColor: AppColors.AppBarColor,
           cardColor: AppColors.AppBarColor),
