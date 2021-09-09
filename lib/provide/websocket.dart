@@ -6,6 +6,7 @@ import 'package:web_socket_channel/io.dart';
 import 'package:flutter/material.dart';
 import '../model/conversation.dart';
 
+//mac test
 class WebSocketProvide with ChangeNotifier {
   var uid = '';
   var nickname = '';
