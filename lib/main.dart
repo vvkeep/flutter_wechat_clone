@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Mul',
+      title: 'Mul', //mac test
       theme: ThemeData(
           primaryColor: AppColors.AppBarColor,
           cardColor: AppColors.AppBarColor),
