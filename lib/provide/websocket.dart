@@ -11,11 +11,11 @@ class WebSocketProvide with ChangeNotifier {
   var nickname = '';
   var users = [];
   var groups = [];
-  var historyMessage = []; //接收到哦的所有的历史消息
-  var messageList = []; // 所有消息页面人员
+  var historyMessage = []; //接收到的所有的历史消息
+  var messageList = []; //所有消息页面人员
   var currentMessageList = []; //选择进入详情页的消息历史记录
   var connecting = false; //websocket连接状态
-  IOWebSocketChannel channel;
+  late IOWebSocketChannel channel;
 
   init() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -42,7 +42,7 @@ class WebSocketProvide with ChangeNotifier {
 
   createWebsocket() async {
     //创建连接并且发送鉴别身份信息
-    channel = await new IOWebSocketChannel.connect('ws://111.231.225.178:3001');
+    channel = new IOWebSocketChannel.connect('ws://192.168.102.217:3001');
     var obj = {
       "uid": uid,
       "type": 1,
@@ -58,10 +58,12 @@ class WebSocketProvide with ChangeNotifier {
         onError: onError, onDone: onDone);
   }
 
+//监听消息
   listenMessage(data) {
     connecting = true;
     var obj = jsonDecode(data);
     print(data);
+    // 创建连接
     if (obj['type'] == 1) {
       // 获取聊天室的人员与群列表
       messageList = [];
@@ -72,7 +74,7 @@ class WebSocketProvide with ChangeNotifier {
         messageList.add(new Conversation(
             avatar: 'assets/images/ic_group_chat.png',
             title: groups[i]['name'],
-            des: '点击进入聊天',
+            desc: '点击进入聊天',
             updateAt: obj['date'].substring(11, 16),
             unreadMsgCount: 0,
             displayDot: false,
@@ -84,7 +86,7 @@ class WebSocketProvide with ChangeNotifier {
           messageList.add(new Conversation(
               avatar: 'assets/images/ic_group_chat.png',
               title: users[i]['nickname'],
-              des: '点击进入聊天',
+              desc: '点击进入聊天',
               updateAt: obj['date'].substring(11, 16),
               unreadMsgCount: 0,
               displayDot: false,
@@ -138,7 +140,7 @@ class WebSocketProvide with ChangeNotifier {
     if (messageList[index].userId != null) {
       _bridge..add(messageList[index].userId)..add(uid);
     }
-    int _groupId;
+    int _groupId = 000000;
     if (messageList[index].groupId != null) {
       _groupId = messageList[index].groupId;
     }
@@ -157,7 +159,7 @@ class WebSocketProvide with ChangeNotifier {
   }
 
   onError(error) {
-    print('error------------>${error}');
+    print('error------------>$error');
   }
 
   void onDone() {
