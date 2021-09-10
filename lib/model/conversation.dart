@@ -11,7 +11,10 @@ class Conversation {
   final String updateAt;
   final bool isMute;
   final int unreadMsgCount;
-  final bool dispalyDot;
+  final bool displayDot;
+  final int groupId;
+  final String userId;
+  final int type;
 
   const Conversation(
       {required this.avatar,
@@ -21,7 +24,10 @@ class Conversation {
       required this.updateAt,
       this.isMute: false,
       this.unreadMsgCount: 0,
-      this.dispalyDot: false});
+      this.displayDot: false,
+      this.groupId: 000000, //!
+      this.userId: "000000", //!
+      this.type: 2}); //!
 
   bool isAvatarFromNet() {
     if (this.avatar.indexOf('http') == 0 || this.avatar.indexOf('https') == 0) {
