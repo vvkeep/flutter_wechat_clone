@@ -56,7 +56,7 @@ class WebSocketProvide with ChangeNotifier {
     channel.sink.add(text);
     //监听到服务器返回消息
     channel.stream.listen((data) => listenMessage(data),
-        onError: onError, onDone: onDone);
+        onError: onError, onDone: onDone); //!处理error和Done
   }
 
 //监听消息
