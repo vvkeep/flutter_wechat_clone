@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:provide/provide.dart';
 import '../provide/websocket.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../common/style/style.dart';
+import '../constants.dart';
 import './chat_detail/chat_content_view.dart';
 import '../model/conversation.dart';
 
+// ignore: must_be_immutable
 class ChatDetailPage extends StatefulWidget {
   int type;
   int index;
@@ -15,11 +15,11 @@ class ChatDetailPage extends StatefulWidget {
 }
 
 class _ChatDetailPageState extends State<ChatDetailPage> {
-  ScrollController _scrollController;
+  late ScrollController _scrollController; //!
   bool hasText = false;
   int type;
   int index;
-  Conversation data;
+  late Conversation data; //!
   _ChatDetailPageState(this.type, this.index);
   var messageList = [
     {
@@ -69,7 +69,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   final controller = TextEditingController();
   void _handleSubmitted(String text) {
     if (controller.text.length > 0) {
-      print('发送${text}');
+      print('发送$text');
       if (type == 1) {
         Provide.value<WebSocketProvide>(context)
             .sendMessage(2, text, index); //NOTE 发送消息

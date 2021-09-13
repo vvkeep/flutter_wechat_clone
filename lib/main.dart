@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_wechat_clone/provide/websocket.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_wechat_clone/constants.dart';
 import 'package:flutter_wechat_clone/pages/main_page.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => WebSocketProvide()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
