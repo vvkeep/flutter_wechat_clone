@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../constants.dart';
 import './chat_detail/chat_content_view.dart';
 import '../model/conversation.dart';
+import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class ChatDetailPage extends StatefulWidget {
@@ -71,7 +72,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
     if (controller.text.length > 0) {
       print('发送$text');
       if (type == 1) {
-        Provide.value<WebSocketProvide>(context)
+        Provider.of<WebSocketProvide>(context)
             .sendMessage(2, text, index); //NOTE 发送消息
       }
       setState(() {
@@ -102,9 +103,9 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   @override
   Widget build(BuildContext context) {
     if (type == 1) {
-      data = Provide.value<WebSocketProvide>(context).messageList[index];
+      data = Provider.of<WebSocketProvide>(context).messageList[index];
     } else {
-      data = Conversation.mockConversations[index];
+      data = ConversationPageData.mockConversations[index]; //!
     }
     return Scaffold(
       appBar: AppBar(
@@ -137,12 +138,13 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
         color: Color(AppColors.ChatDetailBg),
         child: Column(
           children: <Widget>[
-            Provide<WebSocketProvide>(builder: (context, child, val) {
+            Consumer<WebSocketProvide>(builder: (context, val, child) {
+              //!
               List<Map<String, Object>> list = [];
               if (type == 1) {
                 messageList = [];
                 var historyMessage =
-                    Provide.value<WebSocketProvide>(context).historyMessage;
+                    Provider.of<WebSocketProvide>(context).historyMessage;
                 for (var i = 0; i < historyMessage.length; i++) {
                   if (data.userId != null) {
                     if (historyMessage[i]['bridge'].contains(data.userId)) {
@@ -163,7 +165,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                   } else if (data.groupId != null &&
                       data.groupId == historyMessage[i]['groupId'] &&
                       historyMessage[i]['bridge'].length == 0) {
-                    var uid = Provide.value<WebSocketProvide>(context).uid;
+                    var uid = Provider.of<WebSocketProvide>(context).uid;
                     if (historyMessage[i]['uid'] != uid) {
                       list.add({
                         'type': 0,
@@ -187,18 +189,18 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                 itemBuilder: (BuildContext context, int index) {
                   if (type == 1) {
                     return ChatContentView(
-                        type: list[index]['type'],
-                        text: list[index]['text'],
+                        type: list[index]['type'] as int, //!强制转换
+                        text: list[index]['text'] as String, //!强制转换
                         avatar: list[index]['type'] == 0 ? data.avatar : '',
                         isNetwork: list[index]['type'] == 0
                             ? data.isAvatarFromNet()
                             : false,
-                        username: list[index]['nickname'],
+                        username: list[index]['nickname'] as String, //!强制转换
                         userType: data.type);
                   } else {
                     return ChatContentView(
-                        type: messageList[index]['type'],
-                        text: messageList[index]['text'],
+                        type: messageList[index]['type'] as int, //!强制转换
+                        text: messageList[index]['text'] as String, //!强制转换
                         avatar:
                             messageList[index]['type'] == 0 ? data.avatar : '',
                         isNetwork: messageList[index]['type'] == 0

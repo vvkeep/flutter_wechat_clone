@@ -162,7 +162,7 @@ class ConversationPage extends StatefulWidget {
 }
 
 class _ConversationPageState extends State<ConversationPage> {
-  final ConversationPageData data = ConversationPageData.mock();
+  final ConversationPageData data = ConversationPageData.mock(); //!
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
