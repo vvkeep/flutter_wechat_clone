@@ -19,6 +19,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Provider.of<WebSocketProvide>(context).init(); //!初始化
+
     return MaterialApp(
       title: 'Mul', //mac test
       theme: ThemeData(

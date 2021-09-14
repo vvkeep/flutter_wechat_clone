@@ -3,6 +3,7 @@ import '../widgets/full_width_button.dart';
 import '../constants.dart' show AppColors, Constants;
 import 'package:cached_network_image/cached_network_image.dart';
 
+//SECTION 我:对应:flutter_wechat mine_page.dart
 class _ProfileHeaderView extends StatelessWidget {
   static const HORIZONTAL_PADDING = 20.0;
   static const VERTICAL_PADDING = 13.0;

@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import '../constants.dart' show AppColors, AppStyles, Constants;
 import '../model/conversation.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import '../provide/websocket.dart';
+import 'package:provider/provider.dart';
+
+//SECTION 微信-对话页面:对应flutter_wechat  message_page.dart
 
 class _ConversationItem extends StatelessWidget {
   const _ConversationItem({required this.conversation});
@@ -114,6 +118,7 @@ class _ConversationItem extends StatelessWidget {
   }
 }
 
+//顶部**微信已经登录,手机通知已关闭
 class _DeviceInfoItem extends StatelessWidget {
   const _DeviceInfoItem({required this.device});
   final Device device;
@@ -183,5 +188,33 @@ class _ConversationPageState extends State<ConversationPage> {
           ? data.conversations.length + 1
           : data.conversations.length,
     );
+  }
+}
+
+class MessagePage extends StatelessWidget {
+  final ConversationPageData data = ConversationPageData.mock(); //!
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<WebSocketProvide>(builder: (context, child, val) {
+      var messageList = Provider.of<WebSocketProvide>(context).messageList;
+      var length = data.conversations.length + 1 + messageList.length;
+      print(length);
+      return Container(
+          child: ListView.builder(
+        itemBuilder: (BuildContext context, int index) {
+          if (index == 0) {
+            return _DeviceInfoItem(device: data.device!);
+          } else if (index < data.conversations.length + 1) {
+            return _ConversationItem(
+                conversation: data.conversations[index - 1]);
+          } else {
+            var inde = index - 1 - data.conversations.length;
+            return _ConversationItem(conversation: data.conversations[inde]);
+          }
+        },
+        itemCount: length,
+      ));
+    });
   }
 }

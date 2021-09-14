@@ -43,7 +43,8 @@ class WebSocketProvide with ChangeNotifier {
 
   createWebsocket() async {
     //创建连接并且发送鉴别身份信息
-    channel = new IOWebSocketChannel.connect('ws://192.168.102.217:3001');
+    channel = new IOWebSocketChannel.connect('ws://13.76.44.138:3001');
+    // channel = new IOWebSocketChannel.connect('ws://192.168.102.217:3001');
     var obj = {
       "uid": uid,
       "type": 1,
@@ -139,7 +140,9 @@ class WebSocketProvide with ChangeNotifier {
     print(messageList[index].groupId);
     var _bridge = [];
     if (messageList[index].userId != null) {
-      _bridge..add(messageList[index].userId)..add(uid);
+      _bridge
+        ..add(messageList[index].userId)
+        ..add(uid);
     }
     int _groupId = 000000;
     if (messageList[index].groupId != null) {
@@ -166,6 +169,7 @@ class WebSocketProvide with ChangeNotifier {
   void onDone() {
     print('websocket断开了');
     createWebsocket();
+    Duration(seconds: 10); //停10秒
     print('websocket重连');
   }
 

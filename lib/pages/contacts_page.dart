@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 import '../model/contacts.dart' show Contact, ContactsPageData;
 import 'package:cached_network_image/cached_network_image.dart';
+//SECTION  通讯录 对应flutter_wechat  contact_page.dart
 
 @immutable
 class _ContactItem extends StatelessWidget {

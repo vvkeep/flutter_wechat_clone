@@ -6,6 +6,7 @@ import 'conversation_page.dart';
 import 'profile_page.dart';
 import 'discover_page.dart';
 
+//SECTION 主控:对应flutter_wechat  index_page.dart
 enum ActionItems { GROUP_CHAT, ADD_FRIEND, QR_SCAN, PAYMENT }
 
 class NavigationIconView {
@@ -60,7 +61,8 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     _pageController = PageController(initialPage: _currentIndex);
     _pages = [
-      ConversationPage(),
+      MessagePage(),
+      // ConversationPage(),//!origin
       ContactsPage(),
       DiscoverPage(),
       ProfilePage(),
