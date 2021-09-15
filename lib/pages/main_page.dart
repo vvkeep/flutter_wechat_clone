@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_wechat_clone/provide/websocket.dart';
+import 'package:provider/provider.dart';
 
 import '../constants.dart';
 import 'contacts_page.dart';
@@ -60,6 +62,7 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: _currentIndex);
+
     _pages = [
       MessagePage(),
       // ConversationPage(),//!origin

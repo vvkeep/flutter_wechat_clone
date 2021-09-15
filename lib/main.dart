@@ -19,7 +19,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Provider.of<WebSocketProvide>(context).init(); //!初始化
+    Provider.of<WebSocketProvide>(context, listen: false)
+        .init(); //!初始化,必须listen:false,不然默认是true,会不停出错,刷屏!
 
     return MaterialApp(
       title: 'Mul', //mac test

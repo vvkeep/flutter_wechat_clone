@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -43,8 +44,13 @@ class WebSocketProvide with ChangeNotifier {
 
   createWebsocket() async {
     //创建连接并且发送鉴别身份信息
-    channel = new IOWebSocketChannel.connect('ws://13.76.44.138:3001');
-    // channel = new IOWebSocketChannel.connect('ws://192.168.102.217:3001');
+    channel =
+        new IOWebSocketChannel.connect('ws://13.76.44.138:3001'); //microsoft
+
+    // channel = new IOWebSocketChannel.connect(
+    //     'ws://192.168.102.217:3001'); //office-lenovo
+
+    // channel = new IOWebSocketChannel.connect('ws://192.168.73.128:3001');//office-ubuntu
     var obj = {
       "uid": uid,
       "type": 1,
@@ -163,13 +169,13 @@ class WebSocketProvide with ChangeNotifier {
   }
 
   onError(error) {
-    print('error------------>$error');
+    print('sendMessage error->$error');
   }
 
   void onDone() {
     print('websocket断开了');
     createWebsocket();
-    Duration(seconds: 10); //停10秒
+    Timer(Duration(seconds: 10), () {}); //!停10秒
     print('websocket重连');
   }
 
