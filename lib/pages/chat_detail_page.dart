@@ -72,7 +72,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
     if (controller.text.length > 0) {
       print('发送$text');
       if (type == 1) {
-        Provider.of<WebSocketProvide>(context)
+        Provider.of<WebSocketProvide>(context, listen: false)
             .sendMessage(2, text, index); //NOTE 发送消息
       }
       setState(() {
