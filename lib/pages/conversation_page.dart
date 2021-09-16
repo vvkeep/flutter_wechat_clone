@@ -197,7 +197,9 @@ class MessagePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<WebSocketProvide>(builder: (context, child, val) {
-      var messageList = Provider.of<WebSocketProvide>(context).messageList;
+      //!
+      var messageList =
+          Provider.of<WebSocketProvide>(context, listen: false).messageList; //!
       var length = data.conversations.length + 1 + messageList.length;
       print(length);
       return Container(

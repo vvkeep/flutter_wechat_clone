@@ -103,7 +103,8 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   @override
   Widget build(BuildContext context) {
     if (type == 1) {
-      data = Provider.of<WebSocketProvide>(context).messageList[index];
+      data = Provider.of<WebSocketProvide>(context, listen: false)
+          .messageList[index]; //!
     } else {
       data = ConversationPageData.mockConversations[index]; //!
     }
@@ -165,7 +166,9 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                   } else if (data.groupId != null &&
                       data.groupId == historyMessage[i]['groupId'] &&
                       historyMessage[i]['bridge'].length == 0) {
-                    var uid = Provider.of<WebSocketProvide>(context).uid;
+                    var uid =
+                        Provider.of<WebSocketProvide>(context, listen: false)
+                            .uid; //!
                     if (historyMessage[i]['uid'] != uid) {
                       list.add({
                         'type': 0,
