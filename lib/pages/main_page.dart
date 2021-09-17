@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_wechat_clone/provide/websocket.dart';
-import 'package:provider/provider.dart';
 
 import '../constants.dart';
 import 'contacts_page.dart';

@@ -161,6 +161,7 @@ class _DeviceInfoItem extends StatelessWidget {
   }
 }
 
+//这是原版flutter_wechat_clone
 class ConversationPage extends StatefulWidget {
   @override
   _ConversationPageState createState() => _ConversationPageState();
@@ -191,6 +192,7 @@ class _ConversationPageState extends State<ConversationPage> {
   }
 }
 
+//这是flutter_wechat定义
 class MessagePage extends StatelessWidget {
   final ConversationPageData data = ConversationPageData.mock(); //!
 
