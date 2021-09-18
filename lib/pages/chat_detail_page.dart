@@ -120,6 +120,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
           ),
           iconTheme: IconThemeData(color: Color(AppColors.APPBarTextColor)),
           elevation: 0.0,
+          // ignore: deprecated_member_use
           brightness: Brightness.light,
           backgroundColor: Color(AppColors.PrimaryColor),
           actions: <Widget>[
@@ -147,6 +148,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                 var historyMessage =
                     Provider.of<WebSocketProvide>(context).historyMessage;
                 for (var i = 0; i < historyMessage.length; i++) {
+                  // ignore: unnecessary_null_comparison
                   if (data.userId != null) {
                     if (historyMessage[i]['bridge'].contains(data.userId)) {
                       if (historyMessage[i]['uid'] == data.userId) {
@@ -163,6 +165,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                         });
                       }
                     }
+                    // ignore: unnecessary_null_comparison
                   } else if (data.groupId != null &&
                       data.groupId == historyMessage[i]['groupId'] &&
                       historyMessage[i]['bridge'].length == 0) {

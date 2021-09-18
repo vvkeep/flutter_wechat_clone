@@ -33,6 +33,7 @@ dependencies:
   shared_preferences: ^2.0.7
   web_socket_channel: ^2.1.0
   provider: ^6.0.0
+  fluro: ^2.0.3
 
 
 dev_dependencies:

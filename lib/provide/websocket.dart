@@ -45,10 +45,10 @@ class WebSocketProvide with ChangeNotifier {
   createWebsocket() async {
     //创建连接并且发送鉴别身份信息
     channel =
-        new IOWebSocketChannel.connect('ws://13.76.44.138:3001'); //microsoft
+        // new IOWebSocketChannel.connect('ws://13.76.44.138:3001'); //microsoft
 
-    // channel = new IOWebSocketChannel.connect(
-    //     'ws://192.168.102.217:3001'); //office-lenovo
+        channel = new IOWebSocketChannel.connect(
+            'ws://192.168.102.217:3001'); //office-lenovo
 
     // channel = new IOWebSocketChannel.connect('ws://192.168.73.128:3001');//office-ubuntu
     var obj = {

@@ -135,16 +135,16 @@ class AppStyles {
 }
 
 class Constants {
-  // static const String MENU_MARK_AS_UNREAD = 'MENU_MARK_AS_UNREAD';
-  // static const String MENU_MARK_AS_UNREAD_VALUE = '标为未读';
-  // static const String MENU_PIN_TO_TOP = 'MENU_PIN_TO_TOP';
-  // static const String MENU_PIN_TO_TOP_VALUE = '置顶聊天';
-  // static const String MENU_DELETE_CONVERSATION = 'MENU_DELETE_CONVERSATION';
-  // static const String MENU_DELETE_CONVERSATION_VALUE = '删除该聊天';
-  // static const String MENU_PIN_PA_TO_TOP = 'MENU_PIN_PA_TO_TOP';
-  // static const String MENU_PIN_PA_TO_TOP_VALUE = '置顶公众号';
-  // static const String MENU_UNSUBSCRIBE = 'MENU_UNSUBSCRIBE';
-  // static const String MENU_UNSUBSCRIBE_VALUE = '取消关注';
+  static const String MENU_MARK_AS_UNREAD = 'MENU_MARK_AS_UNREAD';
+  static const String MENU_MARK_AS_UNREAD_VALUE = '标为未读';
+  static const String MENU_PIN_TO_TOP = 'MENU_PIN_TO_TOP';
+  static const String MENU_PIN_TO_TOP_VALUE = '置顶聊天';
+  static const String MENU_DELETE_CONVERSATION = 'MENU_DELETE_CONVERSATION';
+  static const String MENU_DELETE_CONVERSATION_VALUE = '删除该聊天';
+  static const String MENU_PIN_PA_TO_TOP = 'MENU_PIN_PA_TO_TOP';
+  static const String MENU_PIN_PA_TO_TOP_VALUE = '置顶公众号';
+  static const String MENU_UNSUBSCRIBE = 'MENU_UNSUBSCRIBE';
+  static const String MENU_UNSUBSCRIBE_VALUE = '取消关注';
 
   static const IconFontFamily = "appIconFont";
   static const ConversationAvatarSize = 48.0;

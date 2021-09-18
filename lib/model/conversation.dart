@@ -30,6 +30,7 @@ class Conversation {
       this.type: 2}); //!
 
   bool isAvatarFromNet() {
+    //是否是网络图片
     if (this.avatar.indexOf('http') == 0 || this.avatar.indexOf('https') == 0) {
       return true;
     }
