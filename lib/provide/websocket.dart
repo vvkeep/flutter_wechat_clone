@@ -122,8 +122,8 @@ class WebSocketProvide with ChangeNotifier {
             }
           }
           if (count > 0) {
-            messageList[i].displayDot = true;
-            messageList[i].unreadMsgCount = count;
+            // messageList[i].displayDot = true; //!origin
+            // messageList[i].unreadMsgCount = count;//FIXME 报错
           }
         }
         if (messageList[i].groupId != null) {
@@ -136,8 +136,8 @@ class WebSocketProvide with ChangeNotifier {
             }
           }
           if (count > 0) {
-            messageList[i].displayDot = true;
-            messageList[i].unreadMsgCount = count;
+            // messageList[i].displayDot = true;//FIXME
+            // messageList[i].unreadMsgCount = count;//报错
           }
         }
       }
