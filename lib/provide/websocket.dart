@@ -113,28 +113,34 @@ class WebSocketProvide with ChangeNotifier {
       print('historyMessage:$historyMessage');
       for (var i = 0; i < messageList.length; i++) {
         if (messageList[i].userId != null) {
+          //判断个人聊天
           var count = 0; //!个人未读消息总数
           for (var r = 0; r < historyMessage.length; r++) {
-            if (historyMessage[r]['status'] == 1 &&
+            if (historyMessage[r]['status'] == 1 && //新消息
                 historyMessage[r]['bridge'].contains(messageList[i].userId) &&
                 historyMessage[r]['uid'] != uid) {
               count++;
             }
           }
+          print('person msg count:$count');
           if (count > 0) {
             // messageList[i].displayDot = true; //!origin
-            // messageList[i].unreadMsgCount = count;//FIXME 报错
+            // messageList[i].unreadMsgCount = count;//报错
           }
         }
+        //FIXME 群里消息和个人要分开
         if (messageList[i].groupId != null) {
+          //判断群聊天
           var count = 0; //!群未读消息总数
           for (var r = 0; r < historyMessage.length; r++) {
-            if (historyMessage[r]['status'] == 1 &&
+            if (historyMessage[r]['status'] == 1 && //新消息
                 historyMessage[r]['groupId'] == messageList[i].groupId &&
                 historyMessage[r]['uid'] != uid) {
               count++;
             }
           }
+          print('group msg count:$count');
+
           if (count > 0) {
             // messageList[i].displayDot = true;//FIXME
             // messageList[i].unreadMsgCount = count;//报错
@@ -151,8 +157,9 @@ class WebSocketProvide with ChangeNotifier {
     print(messageList[index].groupId);
     var _bridge = [];
     if (messageList[index].userId != null) {
+      //NOTE 空是群聊,非空是点对点,需要改进
       _bridge
-        ..add(messageList[index].userId) //FIXME origin是有的
+        ..add(messageList[index].userId)
         ..add(uid); //!
     }
     int? _groupId;

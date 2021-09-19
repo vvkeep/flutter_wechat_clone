@@ -267,7 +267,7 @@ class MessagePage extends StatelessWidget {
       var messageList = Provider.of<WebSocketProvide>(context, listen: false)
           .messageList; //!服务器数据,flutter交流群
       var length = data.conversations.length + 1 + messageList.length;
-      print(length);
+      print('数据个数:$length');
       return Container(
           child: ListView.builder(
         itemBuilder: (BuildContext context, int index) {

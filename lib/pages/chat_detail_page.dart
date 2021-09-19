@@ -67,7 +67,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
     },
   ];
 
-  final controller = TextEditingController();
+  final controller = TextEditingController(); //文本控制器
   void _handleSubmitted(String text) {
     if (controller.text.length > 0) {
       print('发送$text');

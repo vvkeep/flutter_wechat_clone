@@ -12,8 +12,8 @@ class Conversation {
   final bool isMute;
   final int unreadMsgCount;
   final bool displayDot;
-  final int groupId;
-  final String userId;
+  final int? groupId;
+  final String? userId;
   final int type;
 
   const Conversation(
@@ -25,9 +25,9 @@ class Conversation {
       this.isMute: false,
       this.unreadMsgCount: 0,
       this.displayDot: false,
-      this.groupId: 000000, //!
-      this.userId: "000000", //!
-      this.type: 20}); //!
+      this.groupId, //!不能随便设置值,用空判断群聊否
+      this.userId, //!不能随便设置值,用空判断个人聊天
+      this.type: 2}); //!
 
   bool isAvatarFromNet() {
     //是否是网络图片
