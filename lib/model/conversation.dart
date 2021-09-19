@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../constants.dart';
 
-enum Device { MAC, WIN }
+enum Device { MAC, WIN } //平台
 
 class Conversation {
   final String avatar;
@@ -27,7 +27,7 @@ class Conversation {
       this.displayDot: false,
       this.groupId: 000000, //!
       this.userId: "000000", //!
-      this.type: 2}); //!
+      this.type: 20}); //!
 
   bool isAvatarFromNet() {
     //是否是网络图片
@@ -44,7 +44,7 @@ class ConversationPageData {
     required this.conversations,
   });
 
-  final Device? device;
+  final Device? device; //平台
   final List<Conversation> conversations;
 
   static mock() {

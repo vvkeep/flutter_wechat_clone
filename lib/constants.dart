@@ -29,6 +29,7 @@ class AppColors {
   static const IndexLetterBoxBgColor = Colors.black45;
 }
 
+//flutter_wechat使用图标方案,主要在chat_detail和chat_content中使用.
 class ICons {
   static const String FONT_FAMILY = 'wxIconFont';
 
@@ -159,6 +160,7 @@ class Constants {
   static const ProfileHeaderIconSize = 60.0;
 
   static const ConversationAvatarDefaultIocn = Icon(
+    //对话页面:头像占位图标
     IconData(
       0xe642,
       fontFamily: IconFontFamily,
@@ -167,6 +169,7 @@ class Constants {
   );
 
   static const ContactAvatarDefaultIocn = Icon(
+    //通讯录头像占位图标
     IconData(
       0xe642,
       fontFamily: IconFontFamily,
@@ -175,6 +178,7 @@ class Constants {
   );
 
   static const ProfileAvatarDefaultIocn = Icon(
+    //我-头像-占位符
     IconData(
       0xe642,
       fontFamily: IconFontFamily,

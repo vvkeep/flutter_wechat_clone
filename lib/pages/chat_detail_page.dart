@@ -20,12 +20,12 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   bool hasText = false;
   int type;
   int index;
-  late Conversation data; //!
+  late Conversation data; //!对话数据
   _ChatDetailPageState(this.type, this.index);
   var messageList = [
     {
-      'type': 0,
-      'text': 'hello',
+      'type': 0, //!0是对方,1是自己
+      'text': 'hello hm',
     },
     {
       'type': 1,
@@ -73,7 +73,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
       print('发送$text');
       if (type == 1) {
         Provider.of<WebSocketProvide>(context, listen: false)
-            .sendMessage(2, text, index); //NOTE 发送消息
+            .sendMessage(2, text, index); //NOTE type2发送消息
       }
       setState(() {
         hasText = false;
@@ -104,15 +104,16 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   Widget build(BuildContext context) {
     if (type == 1) {
       data = Provider.of<WebSocketProvide>(context, listen: false)
-          .messageList[index]; //!
+          .messageList[index]; //!接收的服务器数据
     } else {
+      //type0模拟数据
       data = ConversationPageData.mockConversations[index]; //!
     }
     return Scaffold(
       appBar: AppBar(
           centerTitle: false,
           title: Text(
-            data.title,
+            data.title, //标题
             style: TextStyle(
               fontSize: ScreenUtil().setSp(30.0),
               color: Color(AppColors.APPBarTextColor),

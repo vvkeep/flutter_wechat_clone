@@ -22,7 +22,7 @@ class WebSocketProvide with ChangeNotifier {
   init() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final userInfo = prefs.getString('userInfo');
-    print(userInfo);
+    print('UserInfo:$userInfo');
     if (userInfo == null) {
       //弹出设置用户名
       var now = new DateTime.now();
@@ -44,13 +44,16 @@ class WebSocketProvide with ChangeNotifier {
 
   createWebsocket() async {
     //创建连接并且发送鉴别身份信息
-    channel =
-        // new IOWebSocketChannel.connect('ws://13.76.44.138:3001'); //microsoft
+    // channel = new IOWebSocketChannel.connect('ws://13.76.44.138:3001'); //microsoft
 
-        channel = new IOWebSocketChannel.connect(
-            'ws://192.168.102.217:3001'); //office-lenovo
+    // channel = new IOWebSocketChannel.connect(
+    //     'ws://192.168.102.217:3001'); //office-lenovo
 
     // channel = new IOWebSocketChannel.connect('ws://192.168.73.128:3001');//office-ubuntu
+
+    channel =
+        new IOWebSocketChannel.connect('ws://192.168.1.251:3001'); //macbook
+
     var obj = {
       "uid": uid,
       "type": 1,
@@ -70,7 +73,7 @@ class WebSocketProvide with ChangeNotifier {
   listenMessage(data) {
     connecting = true;
     var obj = jsonDecode(data);
-    print(data);
+    print('接收到消息:$data');
     // 创建连接
     if (obj['type'] == 1) {
       // 获取聊天室的人员与群列表
@@ -79,6 +82,7 @@ class WebSocketProvide with ChangeNotifier {
       users = obj['users'];
       groups = obj['groups'];
       for (var i = 0; i < groups.length; i++) {
+        //!群?
         messageList.add(new Conversation(
             avatar: 'assets/images/ic_group_chat.png',
             title: groups[i]['name'],
@@ -90,6 +94,7 @@ class WebSocketProvide with ChangeNotifier {
             type: 2));
       }
       for (var i = 0; i < users.length; i++) {
+        //!用户?
         if (users[i]['uid'] != uid) {
           messageList.add(new Conversation(
               avatar: 'assets/images/ic_group_chat.png',
@@ -103,12 +108,12 @@ class WebSocketProvide with ChangeNotifier {
         }
       }
     } else if (obj['type'] == 2) {
-      //接收到消息
-      historyMessage.add(obj);
-      print(historyMessage);
+      //tpye2接收到消息
+      historyMessage.add(obj); //[追加]所有消息
+      print('historyMessage:$historyMessage');
       for (var i = 0; i < messageList.length; i++) {
         if (messageList[i].userId != null) {
-          var count = 0;
+          var count = 0; //!个人未读消息总数
           for (var r = 0; r < historyMessage.length; r++) {
             if (historyMessage[r]['status'] == 1 &&
                 historyMessage[r]['bridge'].contains(messageList[i].userId) &&
@@ -122,7 +127,7 @@ class WebSocketProvide with ChangeNotifier {
           }
         }
         if (messageList[i].groupId != null) {
-          var count = 0;
+          var count = 0; //!群未读消息总数
           for (var r = 0; r < historyMessage.length; r++) {
             if (historyMessage[r]['status'] == 1 &&
                 historyMessage[r]['groupId'] == messageList[i].groupId &&
@@ -147,24 +152,24 @@ class WebSocketProvide with ChangeNotifier {
     var _bridge = [];
     if (messageList[index].userId != null) {
       _bridge
-        ..add(messageList[index].userId)
-        ..add(uid);
+        ..add(messageList[index].userId) //FIXME origin是有的
+        ..add(uid); //!
     }
-    int _groupId = 000000;
+    int? _groupId;
     if (messageList[index].groupId != null) {
       _groupId = messageList[index].groupId;
     }
     print(_bridge);
     var obj = {
       "uid": uid,
-      "type": 2,
+      "type": type, //!origin为2
       "nickname": nickname,
       "msg": data,
       "bridge": _bridge,
       "groupId": _groupId
     };
     String text = json.encode(obj).toString();
-    print(text);
+    print('sendmessage:$text');
     channel.sink.add(text);
   }
 
@@ -175,7 +180,7 @@ class WebSocketProvide with ChangeNotifier {
   void onDone() {
     print('websocket断开了');
     createWebsocket();
-    Timer(Duration(seconds: 10), () {}); //!停10秒
+    Timer(Duration(seconds: 20), () {}); //!停10秒
     print('websocket重连');
   }
 

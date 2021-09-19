@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../constants.dart';
 import 'contacts_page.dart';
@@ -37,7 +38,9 @@ class _MainPageState extends State<MainPage> {
   List<NavigationIconView> _navigationViews = [
     NavigationIconView(
         title: '微信',
-        icon: IconData(0xe608, fontFamily: Constants.IconFontFamily),
+        icon: IconData(0xe608,
+            fontFamily: Constants
+                .IconFontFamily), //!flutter_weichat_clone每一个icon代码都是手工输入
         activeIcon: IconData(0xe603, fontFamily: Constants.IconFontFamily)),
     NavigationIconView(
       title: '通讯录',
@@ -63,7 +66,7 @@ class _MainPageState extends State<MainPage> {
 
     _pages = [
       MessagePage(),
-      // ConversationPage(),//!origin
+      // ConversationPage(), //!origin
       ContactsPage(),
       DiscoverPage(),
       ProfilePage(),
@@ -104,6 +107,15 @@ class _MainPageState extends State<MainPage> {
         });
       },
     );
+
+    // ScreenUtil.instance = ScreenUtil(width: 750,height:1334)..init(context);//OIRIGIN 初始化屏幕分辨率
+    //FIXME新版初始化,screenUtil,只有初始化后才能用.flutter_wechat_clone中并没有使用,未来研究去掉!主要在chat_dedail_page中使用了!
+    ScreenUtil.init(
+        BoxConstraints(
+            maxWidth: MediaQuery.of(context).size.width,
+            maxHeight: MediaQuery.of(context).size.height),
+        designSize: Size(750, 1334),
+        orientation: Orientation.portrait);
 
     return Scaffold(
       appBar: AppBar(
