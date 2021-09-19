@@ -43,10 +43,12 @@ class _ContactItem extends StatelessWidget {
     if (_isAvatarFromNet) {
       _avatarIcon = CachedNetworkImage(
         imageUrl: this.avatar,
-        placeholder: (context, url) => Constants.ContactAvatarDefaultIocn,
+        placeholder: (context, url) =>
+            Constants.ContactAvatarDefaultIocn, //通讯录头像占位符
         width: Constants.ContactAvatarSize,
         height: Constants.ContactAvatarSize,
-        errorWidget: (context, url, msg) => Constants.ContactAvatarDefaultIocn,
+        errorWidget: (context, url, msg) =>
+            Constants.ContactAvatarDefaultIocn, //通讯录头像占位符
       );
     } else {
       _avatarIcon = Image.asset(

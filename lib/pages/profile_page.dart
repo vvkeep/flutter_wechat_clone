@@ -25,7 +25,8 @@ class _ProfileHeaderView extends StatelessWidget {
                 image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
               ),
             ),
-            placeholder: (context, msg) => Constants.ProfileAvatarDefaultIocn,
+            placeholder: (context, msg) =>
+                Constants.ProfileAvatarDefaultIocn, //头像占位符图片
             errorWidget: (context, url, error) => Icon(Icons.error),
             width: Constants.ProfileHeaderIconSize,
             height: Constants.ProfileHeaderIconSize,

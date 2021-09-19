@@ -23,7 +23,8 @@ class _ConversationItem extends StatelessWidget {
       avatar = CachedNetworkImage(
         //缓存图片
         imageUrl: conversation.avatar,
-        placeholder: (context, msg) => Constants.ConversationAvatarDefaultIocn,
+        placeholder: (context, msg) =>
+            Constants.ConversationAvatarDefaultIocn, //占位图片
         width: Constants.ConversationAvatarSize,
         height: Constants.ConversationAvatarSize,
       );
@@ -82,7 +83,7 @@ class _ConversationItem extends StatelessWidget {
       margin: const EdgeInsets.only(top: 10.0),
       child: Icon(
         IconData(
-          0xe78b,
+          0xe78b, //勿扰图标代码
           fontFamily: Constants.IconFontFamily,
         ),
         color: muteIconColor,
@@ -183,7 +184,7 @@ class _DeviceInfoItem extends StatelessWidget {
   final Device device;
 
   int get iconName {
-    return device == Device.WIN ? 0xe72a : 0xe640;
+    return device == Device.WIN ? 0xe72a : 0xe640; //iconName
   }
 
   String get deviceName {
@@ -207,7 +208,8 @@ class _DeviceInfoItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Icon(
-            IconData(this.iconName, fontFamily: Constants.IconFontFamily),
+            IconData(this.iconName,
+                fontFamily: Constants.IconFontFamily), //windows or mac icon
             size: 24.0,
             color: AppColors.DeviceInfoItemIconColor,
           ),
@@ -221,35 +223,38 @@ class _DeviceInfoItem extends StatelessWidget {
 }
 
 //这是原版flutter_wechat_clone
-// class ConversationPage extends StatefulWidget {
-//   @override
-//   _ConversationPageState createState() => _ConversationPageState();
-// }
+class ConversationPage extends StatefulWidget {
+  @override
+  _ConversationPageState createState() => _ConversationPageState();
+}
 
-// class _ConversationPageState extends State<ConversationPage> {
-//   final ConversationPageData data = ConversationPageData.mock(); //!
-//   @override
-//   Widget build(BuildContext context) {
-//     return ListView.builder(
-//       itemBuilder: (BuildContext context, int index) {
-//         if (data.device != null) {
-//           //需要显示其他设备的登录信息
-//           if (index == 0) {
-//             return _DeviceInfoItem(device: data.device!);
-//           } else {
-//             return _ConversationItem(
-//                 conversation: data.conversations[index - 1]);
-//           }
-//         } else {
-//           return _ConversationItem(conversation: data.conversations[index]);
-//         }
-//       },
-//       itemCount: data.device != null
-//           ? data.conversations.length + 1
-//           : data.conversations.length,
-//     );
-//   }
-// }
+class _ConversationPageState extends State<ConversationPage> {
+  final ConversationPageData data = ConversationPageData.mock(); //!
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemBuilder: (BuildContext context, int index) {
+        if (data.device != null) {
+          //需要显示其他设备的登录信息
+          if (index == 0) {
+            return _DeviceInfoItem(device: data.device!);
+          } else {
+            return _ConversationItem(
+                conversation: data.conversations[index - 1],
+                index: index - 1,
+                type: 0);
+          }
+        } else {
+          return _ConversationItem(
+              conversation: data.conversations[index], index: index, type: 1);
+        }
+      },
+      itemCount: data.device != null
+          ? data.conversations.length + 1
+          : data.conversations.length,
+    );
+  }
+}
 
 //这是flutter_wechat定义
 class MessagePage extends StatelessWidget {
@@ -259,24 +264,28 @@ class MessagePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<WebSocketProvide>(builder: (context, child, val) {
       //!
-      var messageList =
-          Provider.of<WebSocketProvide>(context, listen: false).messageList; //!
+      var messageList = Provider.of<WebSocketProvide>(context, listen: false)
+          .messageList; //!服务器数据,flutter交流群
       var length = data.conversations.length + 1 + messageList.length;
       print(length);
       return Container(
           child: ListView.builder(
         itemBuilder: (BuildContext context, int index) {
           if (index == 0) {
+            //登录信息
             return _DeviceInfoItem(device: data.device!);
           } else if (index < data.conversations.length + 1) {
+            //模拟数据
             return _ConversationItem(
                 conversation: data.conversations[index - 1],
                 index: index - 1,
-                type: 0);
+                type: 0); //tpye0为模拟数据
           } else {
             var inde = index - 1 - data.conversations.length;
             return _ConversationItem(
-                conversation: data.conversations[inde], index: inde, type: 1);
+                conversation: messageList[inde],
+                index: inde,
+                type: 1); //!type1:服务器数据flutter 交流群
           }
         },
         itemCount: length,
