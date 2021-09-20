@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/full_width_button.dart';
 import '../constants.dart' show AppColors;
+//SECTION 朋友圈:对应flutter_wechat  discover_page.dart
 
 class DiscoverPage extends StatefulWidget {
   @override
