@@ -65,6 +65,8 @@ class ChatContentView extends StatelessWidget {
       showMenu<String>(
           context: context,
           position: position,
+          color: AppColors.AppBarPopupMenuColor, //!必须设置颜色,不然是黑色的
+
           items: <PopupMenuItem<String>>[
             PopupMenuItem(
               child: Text(MessageDetailSelects.MENU_COPY_VALUE),

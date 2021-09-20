@@ -20,52 +20,9 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   bool hasText = false;
   int type;
   int index;
-  late Conversation data; //!对话数据
+  late Conversation currentConversation; //!对话数据
   _ChatDetailPageState(this.type, this.index);
-  var messageList = [
-    {
-      'type': 0, //!0是对方,1是自己
-      'text': 'hello hm',
-    },
-    {
-      'type': 1,
-      'text': 'hello',
-    },
-    {
-      'type': 0,
-      'text':
-          'Flutter是谷歌的移动UI框架，可以快速在iOS和Android上构建高质量的原生用户界面。 Flutter可以与现有的代码一起工作。在全世界，Flutter正在被越来越多的开发者和组织使用，并且Flutter是完全免费、开源的。',
-    },
-    {
-      'type': 1,
-      'text': '它也是构建未来的Google Fuchsia [1]  应用的主要方式。',
-    },
-    {
-      'type': 0,
-      'text':
-          'Flutter是谷歌的移动UI框架 [4]  ，可以快速在iOS和Android上构建高质量的原生用户界面。 Flutter可以与现有的代码一起工作。在全世界，Flutter正在被越来越多的开发者和组织使用，并且Flutter是完全免费、开源的。它也是构建未来的Google Fuchsia [1]  应用的主要方式。',
-    },
-    {
-      'type': 1,
-      'text':
-          'Flutter组件采用现代响应式框架构建，这是从React中获得的灵感，中心思想是用组件(widget)构建你的UI。 组件描述了在给定其当前配置和状态时他们显示的样子。当组件状态改变，组件会重构它的描述(description)，Flutter会对比之前的描述， 以确定底层渲染树从当前状态转换到下一个状态所需要的最小更改。',
-    },
-    {
-      'type': 0,
-      'text':
-          'Flutter的第一个版本被称为“Sky”，运行在Android操作系统上。它是在2015年Dart开发者峰会 [3]  上亮相的，其目的是能够以每秒120帧的速度持续渲染。',
-    },
-    {
-      'type': 1,
-      'text':
-          'runApp函数接收给定的组件(Widget)并使其成为组件树的根。 在此例中，组件树由两个组件构成，Center组件和它的子组件-Text组件。框架强制根组件覆盖整个屏幕，这意味着“Hello, world”文本在屏幕上居中显示。需要注意的是，在上面的Text实例中必须指定文本显示方向。不必担心，当使用MaterialApp时，它会帮你自动解决这些小事情，稍后将进行演示。',
-    },
-    {
-      'type': 0,
-      'text':
-          '在编写app时，通常会创建新组件，是继承无状态的StatelessWidget还是有状态的StatefulWidget， 取决于您的组件是否需要管理状态。组件的主要工作是实现一个build函数，它使用其他低级别的组件来构建自己。Flutter框架将依次构建这些组件，最终会到达代表底层渲染对象的组件-RenderObject，它会计算并描述组件的几何形状。',
-    },
-  ];
+  var messageList = []; //消息
 
   final controller = TextEditingController(); //文本控制器
   void _handleSubmitted(String text) {
@@ -102,18 +59,14 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (type == 1) {
-      data = Provider.of<WebSocketProvide>(context, listen: false)
-          .convesationList[index]; //!接收的服务器数据
-    } else {
-      //type0模拟数据
-      data = ConversationPageData.mockConversations[index]; //!
-    }
+    currentConversation = Provider.of<WebSocketProvide>(context, listen: false)
+        .convesationList[index]; //!接收的服务器数据,当前对话
+
     return Scaffold(
       appBar: AppBar(
           centerTitle: false,
           title: Text(
-            data.title, //标题
+            currentConversation.title, //标题
             style: TextStyle(
               fontSize: ScreenUtil().setSp(30.0),
               color: Color(AppColors.APPBarTextColor),
@@ -150,9 +103,11 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                     Provider.of<WebSocketProvide>(context).historyMessage;
                 for (var i = 0; i < historyMessage.length; i++) {
                   // ignore: unnecessary_null_comparison
-                  if (data.userId != null) {
-                    if (historyMessage[i]['bridge'].contains(data.userId)) {
-                      if (historyMessage[i]['uid'] == data.userId) {
+                  if (currentConversation.userId != null) {
+                    if (historyMessage[i]['bridge']
+                        .contains(currentConversation.userId)) {
+                      if (historyMessage[i]['uid'] ==
+                          currentConversation.userId) {
                         list.add({
                           'type': 0,
                           'text': historyMessage[i]['msg'],
@@ -167,8 +122,9 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                       }
                     }
                     // ignore: unnecessary_null_comparison
-                  } else if (data.groupId != null &&
-                      data.groupId == historyMessage[i]['groupId'] &&
+                  } else if (currentConversation.groupId != null &&
+                      currentConversation.groupId ==
+                          historyMessage[i]['groupId'] &&
                       historyMessage[i]['bridge'].length == 0) {
                     var uid =
                         Provider.of<WebSocketProvide>(context, listen: false)
@@ -198,23 +154,26 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                     return ChatContentView(
                         type: list[index]['type'] as int, //!强制转换
                         text: list[index]['text'] as String, //!强制转换
-                        avatar: list[index]['type'] == 0 ? data.avatar : '',
+                        avatar: list[index]['type'] == 0
+                            ? currentConversation.avatar
+                            : '',
                         isNetwork: list[index]['type'] == 0
-                            ? data.isAvatarFromNet()
+                            ? currentConversation.isAvatarFromNet()
                             : false,
                         username: list[index]['nickname'] as String, //!强制转换
-                        userType: data.type);
+                        userType: currentConversation.type);
                   } else {
                     return ChatContentView(
                         type: messageList[index]['type'] as int, //!强制转换
                         text: messageList[index]['text'] as String, //!强制转换
-                        avatar:
-                            messageList[index]['type'] == 0 ? data.avatar : '',
+                        avatar: messageList[index]['type'] == 0
+                            ? currentConversation.avatar
+                            : '',
                         isNetwork: messageList[index]['type'] == 0
-                            ? data.isAvatarFromNet()
+                            ? currentConversation.isAvatarFromNet()
                             : false,
-                        username: data.title,
-                        userType: data.type);
+                        username: currentConversation.title,
+                        userType: currentConversation.type);
                   }
                 },
                 itemCount: type == 1 ? list.length : messageList.length,
@@ -260,7 +219,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                         setState(() {
                           hasText = text.length > 0 ? true : false;
                         });
-                        print('change=================== $text');
+                        print('change========= $text');
                       },
                       onSubmitted: _handleSubmitted,
                       enabled: true, //是否禁用

@@ -20,6 +20,15 @@ class WebSocketProvide with ChangeNotifier {
   var connecting = false; //websocket连接状态
   late IOWebSocketChannel channel;
 
+  // Device? device; //null不显示平台
+  Device? device = Device.MAC; //平台
+
+  //设置某一个对话读过了.
+  markRead(int index) {
+    convesationList[index].unreadMsgCount = 0;
+    notifyListeners();
+  }
+
   init() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final userInfo = prefs.getString('userInfo');

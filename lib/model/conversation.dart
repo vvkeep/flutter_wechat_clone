@@ -11,6 +11,7 @@ class Conversation {
   final String updateAt;
   final bool isMute;
   int unreadMsgCount; //NOTE这2个不能用final,因为来了消息后要修改这2个参数
+  //FIXME displayDot是对话若静音,则未读消息显示一个红点,这个属性可以不需要!我已经添加了此功能,将来删除
   bool displayDot; //NOTE这2个不能用final,因为来了消息后要修改这2个参数
   final int? groupId;
   final String? userId;
@@ -57,6 +58,7 @@ class ConversationPageData {
       avatar: 'assets/images/ic_file_transfer.png',
       title: '文件传输助手',
       desc: '',
+      displayDot: true,
       updateAt: '19:56',
     ),
     Conversation(
@@ -78,7 +80,7 @@ class ConversationPageData {
       desc: '今晚要一起去吃肯德基吗？',
       updateAt: '17:56',
       isMute: true,
-      unreadMsgCount: 0,
+      unreadMsgCount: 5,
     ),
     Conversation(
       avatar: 'https://randomuser.me/api/portraits/women/10.jpg',
@@ -109,7 +111,7 @@ class ConversationPageData {
       desc: '今晚要一起去吃肯德基吗？',
       updateAt: '17:56',
       isMute: true,
-      unreadMsgCount: 0,
+      unreadMsgCount: 3,
     ),
     Conversation(
       avatar: 'https://randomuser.me/api/portraits/women/10.jpg',
@@ -133,7 +135,7 @@ class ConversationPageData {
       desc: '今晚要一起去吃肯德基吗？',
       updateAt: '17:56',
       isMute: true,
-      unreadMsgCount: 0,
+      unreadMsgCount: 5,
     ),
     Conversation(
       avatar: 'https://randomuser.me/api/portraits/women/10.jpg',
@@ -148,8 +150,8 @@ class ConversationPageData {
       title: 'Lily',
       desc: '今天要去运动场锻炼吗？',
       updateAt: '昨天',
-      isMute: false,
-      unreadMsgCount: 0,
+      isMute: true,
+      unreadMsgCount: 10,
     ),
   ];
 }

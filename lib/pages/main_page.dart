@@ -65,8 +65,8 @@ class _MainPageState extends State<MainPage> {
     _pageController = PageController(initialPage: _currentIndex);
 
     _pages = [
-      MessagePage(),
-      // ConversationPage(), //!origin
+      // MessagePage(),//带模拟数据
+      ConversationPage(), //不带模拟数据
       ContactsPage(),
       DiscoverPage(),
       ProfilePage(),
