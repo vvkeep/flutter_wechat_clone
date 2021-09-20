@@ -263,11 +263,12 @@ class MessagePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<WebSocketProvide>(builder: (context, child, val) {
-      //!
-      var messageList = Provider.of<WebSocketProvide>(context, listen: false)
-          .messageList; //!服务器数据,flutter交流群
-      var length = data.conversations.length + 1 + messageList.length;
-      print('数据个数:$length');
+      //!convesationList,对话列表,源代码中命名是messageList,容易混淆
+      var convesationList =
+          Provider.of<WebSocketProvide>(context, listen: false)
+              .convesationList; //!服务器数据,flutter交流群
+      var length = data.conversations.length + 1 + convesationList.length;
+      print('conversation 数据个数:$length');
       return Container(
           child: ListView.builder(
         itemBuilder: (BuildContext context, int index) {
@@ -283,7 +284,7 @@ class MessagePage extends StatelessWidget {
           } else {
             var inde = index - 1 - data.conversations.length;
             return _ConversationItem(
-                conversation: messageList[inde],
+                conversation: convesationList[inde],
                 index: inde,
                 type: 1); //!type1:服务器数据flutter 交流群
           }

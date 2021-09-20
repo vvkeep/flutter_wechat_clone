@@ -14,8 +14,9 @@ class WebSocketProvide with ChangeNotifier {
   var users = [];
   var groups = [];
   var historyMessage = []; //接收到的所有的历史消息
-  var messageList = []; //所有消息页面人员
-  var currentMessageList = []; //选择进入详情页的消息历史记录
+  var convesationList =
+      <Conversation>[]; //!所有消息页面-对话列表,原命名是messageList容易和detail中消息混淆
+  // var currentMessageList = []; //选择进入详情页的消息历史记录,origin没有用到
   var connecting = false; //websocket连接状态
   late IOWebSocketChannel channel;
 
@@ -72,22 +73,23 @@ class WebSocketProvide with ChangeNotifier {
 //监听消息
   listenMessage(data) {
     connecting = true;
-    var obj = jsonDecode(data);
+    //接收到的消息msg,orgin obj
+    var msg = jsonDecode(data);
     print('接收到消息:$data');
     // 创建连接
-    if (obj['type'] == 1) {
+    if (msg['type'] == 1) {
       // 获取聊天室的人员与群列表
-      messageList = [];
-      print(obj['msg']);
-      users = obj['users'];
-      groups = obj['groups'];
+      convesationList = [];
+      print(msg['msg']);
+      users = msg['users'];
+      groups = msg['groups'];
       for (var i = 0; i < groups.length; i++) {
         //!群?
-        messageList.add(new Conversation(
+        convesationList.add(new Conversation(
             avatar: 'assets/images/ic_group_chat.png',
             title: groups[i]['name'],
             desc: '点击进入聊天',
-            updateAt: obj['date'].substring(11, 16),
+            updateAt: msg['date'].substring(11, 16),
             unreadMsgCount: 0,
             displayDot: false,
             groupId: groups[i]['id'],
@@ -96,45 +98,46 @@ class WebSocketProvide with ChangeNotifier {
       for (var i = 0; i < users.length; i++) {
         //!用户?
         if (users[i]['uid'] != uid) {
-          messageList.add(new Conversation(
+          convesationList.add(new Conversation(
               avatar: 'assets/images/ic_group_chat.png',
               title: users[i]['nickname'],
               desc: '点击进入聊天',
-              updateAt: obj['date'].substring(11, 16),
+              updateAt: msg['date'].substring(11, 16),
               unreadMsgCount: 0,
               displayDot: false,
               userId: users[i]['uid'],
               type: 1));
         }
       }
-    } else if (obj['type'] == 2) {
+    } else if (msg['type'] == 2) {
       //tpye2接收到消息
-      historyMessage.add(obj); //[追加]所有消息
+      historyMessage.add(msg); //[追加]所有消息
       print('historyMessage:$historyMessage');
-      for (var i = 0; i < messageList.length; i++) {
-        if (messageList[i].userId != null) {
+      for (var i = 0; i < convesationList.length; i++) {
+        if (convesationList[i].userId != null) {
           //判断个人聊天
           var count = 0; //!个人未读消息总数
           for (var r = 0; r < historyMessage.length; r++) {
             if (historyMessage[r]['status'] == 1 && //新消息
-                historyMessage[r]['bridge'].contains(messageList[i].userId) &&
+                historyMessage[r]['bridge']
+                    .contains(convesationList[i].userId) &&
                 historyMessage[r]['uid'] != uid) {
               count++;
             }
           }
           print('person msg count:$count');
           if (count > 0) {
-            // messageList[i].displayDot = true; //!origin
-            // messageList[i].unreadMsgCount = count;//报错
+            convesationList[i].displayDot = true; //!origin
+            convesationList[i].unreadMsgCount = count; //报错
           }
         }
         //FIXME 群里消息和个人要分开
-        if (messageList[i].groupId != null) {
+        if (convesationList[i].groupId != null) {
           //判断群聊天
           var count = 0; //!群未读消息总数
           for (var r = 0; r < historyMessage.length; r++) {
             if (historyMessage[r]['status'] == 1 && //新消息
-                historyMessage[r]['groupId'] == messageList[i].groupId &&
+                historyMessage[r]['groupId'] == convesationList[i].groupId &&
                 historyMessage[r]['uid'] != uid) {
               count++;
             }
@@ -142,8 +145,8 @@ class WebSocketProvide with ChangeNotifier {
           print('group msg count:$count');
 
           if (count > 0) {
-            // messageList[i].displayDot = true;//FIXME
-            // messageList[i].unreadMsgCount = count;//报错
+            convesationList[i].displayDot = true; //FIXME
+            convesationList[i].unreadMsgCount = count; //报错
           }
         }
       }
@@ -153,18 +156,18 @@ class WebSocketProvide with ChangeNotifier {
 
   sendMessage(type, data, index) {
     //发送消息
-    print(messageList[index].userId);
-    print(messageList[index].groupId);
+    print(convesationList[index].userId);
+    print(convesationList[index].groupId);
     var _bridge = [];
-    if (messageList[index].userId != null) {
+    if (convesationList[index].userId != null) {
       //NOTE 空是群聊,非空是点对点,需要改进
       _bridge
-        ..add(messageList[index].userId)
+        ..add(convesationList[index].userId)
         ..add(uid); //!
     }
     int? _groupId;
-    if (messageList[index].groupId != null) {
-      _groupId = messageList[index].groupId;
+    if (convesationList[index].groupId != null) {
+      _groupId = convesationList[index].groupId;
     }
     print(_bridge);
     var obj = {

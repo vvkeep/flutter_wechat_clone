@@ -104,7 +104,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
   Widget build(BuildContext context) {
     if (type == 1) {
       data = Provider.of<WebSocketProvide>(context, listen: false)
-          .messageList[index]; //!接收的服务器数据
+          .convesationList[index]; //!接收的服务器数据
     } else {
       //type0模拟数据
       data = ConversationPageData.mockConversations[index]; //!
