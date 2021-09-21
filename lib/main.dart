@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         .init(); //!初始化,必须listen:false,不然默认是true,会不停出错,刷屏!
 
     return MaterialApp(
-      title: 'Mul', //mac test
+      title: 'flutter_wechat_go',
       theme: ThemeData(
           primaryColor: AppColors.AppBarColor,
           cardColor: AppColors.AppBarColor),
