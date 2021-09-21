@@ -23,13 +23,14 @@ class WebSocketProvide with ChangeNotifier {
   // Device? device; //null不显示平台
   Device? device = Device.MAC; //平台
 
-  //设置某一个对话读过了.
+  //设置某一个对话读过了.用以清楚角标
   markRead(int index) {
     convesationList[index].unreadMsgCount = 0;
     notifyListeners();
   }
 
   init() async {
+    // 读取本地存储的用户信息
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final userInfo = prefs.getString('userInfo');
     print('UserInfo:$userInfo');
@@ -74,7 +75,7 @@ class WebSocketProvide with ChangeNotifier {
       "groupId": ""
     };
     String text = json.encode(obj).toString();
-    channel.sink.add(text);
+    channel.sink.add(text); //发送消息
     //监听到服务器返回消息
     channel.stream.listen((data) => listenMessage(data),
         onError: onError, onDone: onDone); //!处理error和Done
