@@ -54,15 +54,16 @@ class WebSocketProvide with ChangeNotifier {
 
   createWebsocket() async {
     //创建连接并且发送鉴别身份信息
-    // channel = new IOWebSocketChannel.connect('ws://13.76.44.138:3001'); //microsoft
+    channel =
+        new IOWebSocketChannel.connect('ws://13.76.44.138:3001'); //microsoft
 
     // channel = new IOWebSocketChannel.connect(
     //     'ws://192.168.102.217:3001'); //office-lenovo
 
     // channel = new IOWebSocketChannel.connect('ws://192.168.73.128:3001');//office-ubuntu
 
-    channel =
-        new IOWebSocketChannel.connect('ws://192.168.1.251:3001'); //macbook
+    // channel =
+    //     new IOWebSocketChannel.connect('ws://192.168.1.251:3001'); //macbook
 
     var obj = {
       "uid": uid,
@@ -85,7 +86,7 @@ class WebSocketProvide with ChangeNotifier {
     //接收到的消息msg,orgin obj
     var msg = jsonDecode(data);
     print('接收到消息:$data');
-    // 创建连接
+    // NOTE:创建连接,type=1,系统消息
     if (msg['type'] == 1) {
       // 获取聊天室的人员与群列表
       convesationList = [];
@@ -93,7 +94,7 @@ class WebSocketProvide with ChangeNotifier {
       users = msg['users'];
       groups = msg['groups'];
       for (var i = 0; i < groups.length; i++) {
-        //!群?
+        //!群,需要升级判断模式
         convesationList.add(new Conversation(
             avatar: 'assets/images/ic_group_chat.png',
             title: groups[i]['name'],
@@ -105,7 +106,7 @@ class WebSocketProvide with ChangeNotifier {
             type: 2));
       }
       for (var i = 0; i < users.length; i++) {
-        //!用户?
+        //!用户,需要升级判断模式
         if (users[i]['uid'] != uid) {
           convesationList.add(new Conversation(
               avatar: 'assets/images/ic_group_chat.png',
@@ -119,43 +120,46 @@ class WebSocketProvide with ChangeNotifier {
         }
       }
     } else if (msg['type'] == 2) {
-      //tpye2接收到消息
+      //NOTE tpye2接收到用户消息
       historyMessage.add(msg); //[追加]所有消息
       print('historyMessage:$historyMessage');
       for (var i = 0; i < convesationList.length; i++) {
+        //判断个人聊天
         if (convesationList[i].userId != null) {
-          //判断个人聊天
-          var count = 0; //!个人未读消息总数
+          var count = convesationList[i].unreadMsgCount; //!个人未读消息总数
           for (var r = 0; r < historyMessage.length; r++) {
             if (historyMessage[r]['status'] == 1 && //新消息
                 historyMessage[r]['bridge']
                     .contains(convesationList[i].userId) &&
                 historyMessage[r]['uid'] != uid) {
               count++;
+              historyMessage[r]['status'] = 0; //设置读过了
             }
           }
           print('person msg count:$count');
           if (count > 0) {
-            convesationList[i].displayDot = true; //!origin
-            convesationList[i].unreadMsgCount = count; //报错
+            convesationList[i].displayDot = true; //没用
+            convesationList[i].unreadMsgCount = count;
           }
         }
         //FIXME 群里消息和个人要分开
         if (convesationList[i].groupId != null) {
           //判断群聊天
-          var count = 0; //!群未读消息总数
+          var count = convesationList[i].unreadMsgCount; //!群未读消息总数
           for (var r = 0; r < historyMessage.length; r++) {
             if (historyMessage[r]['status'] == 1 && //新消息
                 historyMessage[r]['groupId'] == convesationList[i].groupId &&
                 historyMessage[r]['uid'] != uid) {
               count++;
+              historyMessage[r]['status'] = 0; //设置读过了
+
             }
           }
           print('group msg count:$count');
 
           if (count > 0) {
-            convesationList[i].displayDot = true; //FIXME
-            convesationList[i].unreadMsgCount = count; //报错
+            convesationList[i].displayDot = true; //没用
+            convesationList[i].unreadMsgCount = count;
           }
         }
       }

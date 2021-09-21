@@ -118,11 +118,14 @@ class _ConversationItem extends StatelessWidget {
       child: InkWell(
         onTap: () {
           print('打开会话:${conversation.title}');
-          //设置读过了
-          context.read<WebSocketProvide>().markRead(index);
 
           Application.router
-              .navigateTo(context, '/chatdetail?index=$index&type=$type');
+              .navigateTo(context, '/chatdetail?index=$index&type=$type')
+              .then((value) {
+            //回传值
+            //ANCHOR设置读过了
+            context.read<WebSocketProvide>().markRead(index);
+          });
         },
         onTapDown: (TapDownDetails details) {
           tapPos = details.globalPosition;
