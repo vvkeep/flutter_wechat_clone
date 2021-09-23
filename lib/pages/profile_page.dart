@@ -52,7 +52,7 @@ class _ProfileHeaderView extends StatelessWidget {
             ),
           ),
           Icon(
-            IconData(
+            const IconData(
               0xe620,
               fontFamily: Constants.IconFontFamily,
             ),
@@ -61,7 +61,7 @@ class _ProfileHeaderView extends StatelessWidget {
           ),
           SizedBox(width: 5.0),
           Icon(
-            IconData(
+            const IconData(
               0xe664,
               fontFamily: Constants.IconFontFamily,
             ),

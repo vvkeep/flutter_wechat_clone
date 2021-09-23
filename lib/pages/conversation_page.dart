@@ -97,7 +97,7 @@ class _ConversationItem extends StatelessWidget {
     Widget muteContainer = Container(
       margin: const EdgeInsets.only(top: 10.0),
       child: Icon(
-        IconData(
+        const IconData(
           0xe78b, //勿扰图标代码
           fontFamily: Constants.IconFontFamily,
         ),
@@ -230,7 +230,7 @@ class _DeviceInfoItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Icon(
-            IconData(this.iconName,
+            const IconData(0xe72a, //FIXME 不能动态制定,必须const,未来单独定义个函数以改进
                 fontFamily: Constants.IconFontFamily), //windows or mac icon
             size: 24.0,
             color: AppColors.DeviceInfoItemIconColor,
@@ -253,8 +253,8 @@ class ConversationPage extends StatefulWidget {
 class _ConversationPageState extends State<ConversationPage> {
   @override
   Widget build(BuildContext context) {
+    //NOTE必须加这个,不然数据不及时刷新.Consumer也是个widget
     return Consumer<WebSocketProvide>(builder: (context, val, child) {
-      //NOTE必须加这个,不然数据不及时刷新
       var convesationList = val.convesationList; //!服务器数据,flutter交流群
       var dev = val.device; //显示设备否?
       return ListView.builder(

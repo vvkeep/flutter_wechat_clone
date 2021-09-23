@@ -31,7 +31,7 @@ class FullWidthButton extends StatelessWidget {
           child: Text(title),
         ),
         Icon(
-          IconData(
+          const IconData(
             0xe664,
             fontFamily: Constants.IconFontFamily,
           ),

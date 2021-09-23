@@ -38,24 +38,25 @@ class _MainPageState extends State<MainPage> {
   List<NavigationIconView> _navigationViews = [
     NavigationIconView(
         title: '微信',
-        icon: IconData(0xe608,
+        icon: const IconData(0xe608,
             fontFamily: Constants
                 .IconFontFamily), //!flutter_weichat_clone每一个icon代码都是手工输入
-        activeIcon: IconData(0xe603, fontFamily: Constants.IconFontFamily)),
+        activeIcon:
+            const IconData(0xe603, fontFamily: Constants.IconFontFamily)),
     NavigationIconView(
       title: '通讯录',
-      icon: IconData(0xe601, fontFamily: Constants.IconFontFamily),
-      activeIcon: IconData(0xe602, fontFamily: Constants.IconFontFamily),
+      icon: const IconData(0xe601, fontFamily: Constants.IconFontFamily),
+      activeIcon: const IconData(0xe602, fontFamily: Constants.IconFontFamily),
     ),
     NavigationIconView(
       title: '发现',
-      icon: IconData(0xe600, fontFamily: Constants.IconFontFamily),
-      activeIcon: IconData(0xe604, fontFamily: Constants.IconFontFamily),
+      icon: const IconData(0xe600, fontFamily: Constants.IconFontFamily),
+      activeIcon: const IconData(0xe604, fontFamily: Constants.IconFontFamily),
     ),
     NavigationIconView(
       title: '我',
-      icon: IconData(0xe607, fontFamily: Constants.IconFontFamily),
-      activeIcon: IconData(0xe630, fontFamily: Constants.IconFontFamily),
+      icon: const IconData(0xe607, fontFamily: Constants.IconFontFamily),
+      activeIcon: const IconData(0xe630, fontFamily: Constants.IconFontFamily),
     ),
   ];
 
@@ -73,14 +74,10 @@ class _MainPageState extends State<MainPage> {
     ];
   }
 
-  _buildPopupMenuItem(int iconName, String title) {
+  _buildPopupMenuItem(Widget icon, String title) {
     return Row(
       children: <Widget>[
-        Icon(
-          IconData(iconName, fontFamily: Constants.IconFontFamily),
-          size: 22.0,
-          color: AppColors.AppBarPopupMenuColor,
-        ),
+        icon,
         Container(width: 12.0),
         Text(
           title,
@@ -123,7 +120,8 @@ class _MainPageState extends State<MainPage> {
         elevation: 0.0, //不需要阴影
         actions: <Widget>[
           IconButton(
-            icon: Icon(IconData(0xe605, fontFamily: Constants.IconFontFamily)),
+            icon: const Icon(
+                IconData(0xe605, fontFamily: Constants.IconFontFamily)),
             onPressed: () {
               print('点击了搜索按钮');
             },
@@ -133,25 +131,53 @@ class _MainPageState extends State<MainPage> {
             itemBuilder: (BuildContext context) {
               return <PopupMenuItem<ActionItems>>[
                 PopupMenuItem(
-                  child: _buildPopupMenuItem(0xe606, "发起群聊"),
+                  child: _buildPopupMenuItem(
+                      Icon(
+                        const IconData(0xe606,
+                            fontFamily: Constants.IconFontFamily),
+                        size: 22.0,
+                        color: AppColors.AppBarPopupMenuColor,
+                      ),
+                      "发起群聊"),
                   value: ActionItems.GROUP_CHAT,
                 ),
                 PopupMenuItem(
-                  child: _buildPopupMenuItem(0xe638, "添加朋友"),
+                  child: _buildPopupMenuItem(
+                      Icon(
+                        const IconData(0xe638,
+                            fontFamily: Constants.IconFontFamily),
+                        size: 22.0,
+                        color: AppColors.AppBarPopupMenuColor,
+                      ),
+                      "添加朋友"),
                   value: ActionItems.ADD_FRIEND,
                 ),
                 PopupMenuItem(
-                  child: _buildPopupMenuItem(0xe79b, "扫一扫"),
+                  child: _buildPopupMenuItem(
+                      Icon(
+                        const IconData(0xe79b,
+                            fontFamily: Constants.IconFontFamily),
+                        size: 22.0,
+                        color: AppColors.AppBarPopupMenuColor,
+                      ),
+                      "扫一扫"),
                   value: ActionItems.QR_SCAN,
                 ),
                 PopupMenuItem(
-                  child: _buildPopupMenuItem(0xe658, "收付款"),
+                  child: _buildPopupMenuItem(
+                      Icon(
+                        const IconData(0xe658,
+                            fontFamily: Constants.IconFontFamily),
+                        size: 22.0,
+                        color: AppColors.AppBarPopupMenuColor,
+                      ),
+                      "收付款"),
                   value: ActionItems.PAYMENT,
                 ),
               ];
             },
             icon: Icon(
-              IconData(0xe66b, fontFamily: Constants.IconFontFamily),
+              const IconData(0xe66b, fontFamily: Constants.IconFontFamily),
               size: 22.0,
             ),
             onSelected: (ActionItems selected) {
