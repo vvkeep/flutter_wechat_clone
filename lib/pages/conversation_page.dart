@@ -200,14 +200,29 @@ class _ConversationItem extends StatelessWidget {
   }
 }
 
+//显示设备图标
+Widget getDeviceIcon(Device dc) {
+  if (dc == Device.WIN) {
+    return Icon(
+      const IconData(0xe72a, //不能动态制定,必须const
+          fontFamily: Constants.IconFontFamily), //windows
+      size: 24.0,
+      color: AppColors.DeviceInfoItemIconColor,
+    );
+  } else {
+    return Icon(
+      const IconData(0xe640, //不能动态制定,必须const
+          fontFamily: Constants.IconFontFamily), // mac icon
+      size: 24.0,
+      color: AppColors.DeviceInfoItemIconColor,
+    );
+  }
+}
+
 //顶部**微信已经登录,手机通知已关闭
 class _DeviceInfoItem extends StatelessWidget {
   const _DeviceInfoItem({required this.device});
   final Device device;
-
-  int get iconName {
-    return device == Device.WIN ? 0xe72a : 0xe640; //iconName
-  }
 
   String get deviceName {
     return device == Device.WIN ? "Windows" : "Mac";
@@ -229,12 +244,7 @@ class _DeviceInfoItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Icon(
-            const IconData(0xe72a, //FIXME 不能动态制定,必须const,未来单独定义个函数以改进
-                fontFamily: Constants.IconFontFamily), //windows or mac icon
-            size: 24.0,
-            color: AppColors.DeviceInfoItemIconColor,
-          ),
+          getDeviceIcon(device),
           SizedBox(width: 16.0),
           Text('$deviceName 微信已登录，手机通知已关闭。',
               style: AppStyles.DeviceInfoItemTextStyle)
