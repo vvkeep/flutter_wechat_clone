@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 import '../model/contacts.dart' show Contact, ContactsPageData;
 import 'package:cached_network_image/cached_network_image.dart';
+//SECTION  通讯录 对应flutter_wechat  contact_page.dart
 
 @immutable
 class _ContactItem extends StatelessWidget {
@@ -42,10 +43,12 @@ class _ContactItem extends StatelessWidget {
     if (_isAvatarFromNet) {
       _avatarIcon = CachedNetworkImage(
         imageUrl: this.avatar,
-        placeholder: (context, url) => Constants.ContactAvatarDefaultIocn,
+        placeholder: (context, url) =>
+            Constants.ContactAvatarDefaultIocn, //通讯录头像占位符
         width: Constants.ContactAvatarSize,
         height: Constants.ContactAvatarSize,
-        errorWidget: (context, url, msg) => Constants.ContactAvatarDefaultIocn,
+        errorWidget: (context, url, msg) =>
+            Constants.ContactAvatarDefaultIocn, //通讯录头像占位符
       );
     } else {
       _avatarIcon = Image.asset(

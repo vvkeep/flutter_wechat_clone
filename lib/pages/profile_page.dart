@@ -3,6 +3,7 @@ import '../widgets/full_width_button.dart';
 import '../constants.dart' show AppColors, Constants;
 import 'package:cached_network_image/cached_network_image.dart';
 
+//SECTION 我:对应:flutter_wechat mine_page.dart
 class _ProfileHeaderView extends StatelessWidget {
   static const HORIZONTAL_PADDING = 20.0;
   static const VERTICAL_PADDING = 13.0;
@@ -24,7 +25,8 @@ class _ProfileHeaderView extends StatelessWidget {
                 image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
               ),
             ),
-            placeholder: (context, msg) => Constants.ProfileAvatarDefaultIocn,
+            placeholder: (context, msg) =>
+                Constants.ProfileAvatarDefaultIocn, //头像占位符图片
             errorWidget: (context, url, error) => Icon(Icons.error),
             width: Constants.ProfileHeaderIconSize,
             height: Constants.ProfileHeaderIconSize,
@@ -50,7 +52,7 @@ class _ProfileHeaderView extends StatelessWidget {
             ),
           ),
           Icon(
-            IconData(
+            const IconData(
               0xe620,
               fontFamily: Constants.IconFontFamily,
             ),
@@ -59,7 +61,7 @@ class _ProfileHeaderView extends StatelessWidget {
           ),
           SizedBox(width: 5.0),
           Icon(
-            IconData(
+            const IconData(
               0xe664,
               fontFamily: Constants.IconFontFamily,
             ),
